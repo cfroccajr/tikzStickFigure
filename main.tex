@@ -1,0 +1,22 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{intersections}
+
+\input{stick_figure}
+\input{accessories}
+
+
+
+\begin{document}
+
+\begin{tikzpicture}
+
+\pic at (0,-5) {stick figure};
+
+\pic {wizardhat={head}{red}};
+
+
+\end{tikzpicture}
+
+\end{document}

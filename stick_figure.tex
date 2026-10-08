@@ -1,0 +1,37 @@
+\tikzset{
+    pics/stick figure/.style n args={1}{
+        code={
+            \tikzset{
+                every path/.style={line width=3}
+            }
+        % Coordinates
+        % Head
+            \coordinate (face) at (0,0);
+            \coordinate (head) at ($(face)+(-0.25,0.5)$);
+            \coordinate (chin) at ($(face)+(0,-1)$);
+            \coordinate (neck) at ($(face)+(0,-1.25)$);
+        % Shoulders
+            \coordinate (shoulder) at ($(neck)+(0,-0.33)$);
+            \coordinate (left elbow) at ($(shoulder)+(0:1.25)$);
+            \coordinate (right elbow) at ($(shoulder)+(160:1.25)$);
+            \coordinate (left hand) at ($(left elbow)+(30:1.25)$);
+            \coordinate (right hand) at ($(right elbow)+(160:1.25)$);
+        % Knees and Toes
+            \coordinate (waist) at ($(neck)+(0,-1)$);
+            \coordinate (left knee) at ($(waist)+(-10:1.5)$);
+            \coordinate (right knee) at ($(waist)+(270:1.5)$);
+            \coordinate (left foot) at ($(left knee)+(-75:1.5)$);
+            \coordinate (right foot) at ($(right knee)+(245:1.5)$);
+        % Head
+            \draw[fill=white] (face) circle (1cm);
+        % Arms
+            \path[draw,name path=left arm] (shoulder) -- (left elbow) -- (left hand);
+            \path[draw,name path=right arm] (shoulder) -- (right elbow) -- (right hand);
+        % Legs
+            \path[draw,name path=left leg] (waist) -- (left knee) -- (left foot);
+            \path[draw,name path=right leg] (waist) -- (right knee) -- (right foot);
+        % Body
+            \draw (chin) -- (waist);    
+        }
+    }
+}
