@@ -19,9 +19,9 @@
         % Knees and Toes
             \coordinate (waist) at ($(neck)+(0,-1)$);
             \coordinate (left knee) at ($(waist)+(-10:1.5)$);
-            \coordinate (right knee) at ($(waist)+(270:1.5)$);
+            \coordinate (right knee) at ($(waist)+(250:1.5)$);
             \coordinate (left foot) at ($(left knee)+(-75:1.5)$);
-            \coordinate (right foot) at ($(right knee)+(245:1.5)$);
+            \coordinate (right foot) at ($(right knee)+(220:1.5)$);
         % Head
             \draw[fill=white] (face) circle (1cm);
         % Arms
@@ -31,7 +31,7 @@
             \path[draw,name path=left leg] (waist) -- (left knee) -- (left foot);
             \path[draw,name path=right leg] (waist) -- (right knee) -- (right foot);
         % Body
-            \draw (chin) -- (waist);    
+            \draw (chin) -- (waist);
         }
-    }
+    },
 }

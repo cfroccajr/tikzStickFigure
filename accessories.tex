@@ -1,12 +1,31 @@
 \tikzset{
-    pics/wizardhat/.style n args={2}{
-        code = {
-            \filldraw[fill=#2] (#1) circle [x radius=1.5cm, y radius=5mm, rotate=30];
-            \path[fill=#2,draw,rounded corners] ($(#1)+(220:0.7)$) 
-                            to[bend right] ($(#1)+(30:0.7)$)
-                            to ($(#1)+(120:2)$)
-                            to ($(#1)+(220:0.7)$);
+    pics/sword/.style n args={2}{
+        code={
+            \tikzset{
+                every path/.style={line width=2}
+            }
+            \begin{pgfonlayer}{background layer}
+                \draw[line width=3,line cap=round] (#1) -- +(#2:2.5);
+                \draw (#1) -- +(#2:-7pt) circle (2pt);
+                \draw (#1) +(#2:4pt) -- +(#2+45:12pt);
+                \draw (#1) +(#2:4pt) -- +(#2-45:12pt);
+            \end{pgfonlayer}
         }
     },
-    pics/wizardhat/.default={head}{blue}
+    pics/sword/.default={right hand}{60};
 }
+
+\tikzset{
+    pics/shield/.style n args={2}{
+        code={
+            \tikzset{
+                every path/.style={line width=2}
+            }
+            \begin{pgfonlayer}{background layer}
+                \filldraw[fill=#2,draw] (#1) circle [x radius=9mm, y radius=12mm, rotate=30];                
+            \end{pgfonlayer}
+        }
+    },
+    pics/shield/.default={left hand}{brown};
+}
+

@@ -1,0 +1,14 @@
+\tikzset{
+    pics/wizardhat/.style n args={2}{
+        code = {
+            \begin{pgfonlayer}{foreground layer}
+                \filldraw[fill=#2] (#1) circle [x radius=1.5cm, y radius=5mm, rotate=30];
+                \path[fill=#2,draw,rounded corners = 7pt] ($(#1)+(220:0.7)$) 
+                                to[bend right] ($(#1)+(30:0.7)$)
+                                to ($(#1)+(120:2)$)
+                                to ($(#1)+(220:0.7)$);
+            \end{pgfonlayer}
+        }
+    },
+    pics/wizardhat/.default={head}{blue}
+}

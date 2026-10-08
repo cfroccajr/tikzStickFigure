@@ -2,8 +2,14 @@
 \usepackage{tikz}
 \usetikzlibrary{calc}
 \usetikzlibrary{intersections}
+\usetikzlibrary{backgrounds}
+
+\pgfdeclarelayer{background layer}
+\pgfdeclarelayer{foreground layer}
+\pgfsetlayers{background layer,main,foreground layer}
 
 \input{stick_figure}
+\input{head gear}
 \input{accessories}
 
 
@@ -12,10 +18,11 @@
 
 \begin{tikzpicture}
 
-\pic at (0,-5) {stick figure};
+\pic (gandalf) at (0,-5) {stick figure};
 
-\pic {wizardhat={head}{red}};
-
+\pic {wizardhat={gandalfhead}{red}};
+\pic {sword={gandalfright hand}{120}};
+\pic {shield={gandalfleft hand}{yellow}};
 
 \end{tikzpicture}
 
