@@ -1,0 +1,5 @@
+
+% Syntax \stickfig{<NAME>}{<POSITION>}{<STANCE>}
+\NewDocumentCommand\stickfig{O{} !O{0,0} !O{}}{
+    \pic (#1) at (#2) {stick figure={#3}};
+}

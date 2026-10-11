@@ -18,10 +18,24 @@
             \coordinate (right hand) at ($(right elbow)+(160:1.25)$);
         % Knees and Toes
             \coordinate (waist) at ($(neck)+(0,-1)$);
+        \IfSubStr{#1}{run left}{
             \coordinate (left knee) at ($(waist)+(-10:1.5)$);
             \coordinate (right knee) at ($(waist)+(250:1.5)$);
             \coordinate (left foot) at ($(left knee)+(-75:1.5)$);
             \coordinate (right foot) at ($(right knee)+(220:1.5)$);
+        }{
+            \IfSubStr{#1}{run right}{
+                \coordinate (left knee) at ($(waist)+(-70:1.5)$);
+                \coordinate (right knee) at ($(waist)+(190:1.5)$);
+                \coordinate (left foot) at ($(left knee)+(-40:1.5)$);
+                \coordinate (right foot) at ($(right knee)+(255:1.5)$);
+            }{
+                \coordinate (left knee) at ($(waist)+(-75:1.5)$);
+                \coordinate (right knee) at ($(waist)+(255:1.5)$);
+                \coordinate (left foot) at ($(left knee)+(-75:1.5)$);
+                \coordinate (right foot) at ($(right knee)+(255:1.5)$);
+            }
+        }
         % Head
             \draw[fill=white] (face) circle (1cm);
         % Arms
