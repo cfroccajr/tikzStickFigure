@@ -16,22 +16,63 @@
 
 \input{implementation_commands}
 
+\pgfkeys{key/.code= #1 #1}
+\pgfkeys{key/.default=hello}
+
+% \pgfkeys{
+% % Sets location (?) for commands
+%     % /.cd,
+% % Sets the variable name
+%     hands/.store in = \hands,
+%     stance/.store in = \stance,
+% % Sets the default value
+%     hands = down,
+%     stance = standing,
+% }
+
+% \newcommand{\stick}[1][]{
+% % This processes the \pgfkeys in #1
+%     \pgfkeys{#1}
+% % This is the named key value
+%     \hands, \stance
+% }
+% look at https://tex.stackexchange.com/questions/85637/how-to-submit-a-set-of-tikz-command-with-pgfkeys
+
+
 \begin{document}
+% \pgfkeys{key=hallo,key}
+
+% \stick[stance=jumping]
+
+\vspace{4\baselineskip}
 
 \begin{tikzpicture}[scale=0.75,transform shape]
 
-\pic (gandalf) at (0,-5) {stick figure={run right}{}};
+
+\pic (gandalf) at (0,-5) {stick figure={run left}{}};
 
 \pic {wizardhat={gandalfhead}{red}};
 \pic {sword={gandalfright hand}{120}};
 \pic {shield={gandalfleft hand}{yellow}};
 
-\stickfig[7,-4][run right][][bob]
+\stickfig[stance=run right,position={(7,-4)},name=bob]
 \pic {sword={bobleft hand}{120}};
 \pic {shield={bobright hand}{yellow}};
 
-\stickfig[1,5][standing][injured][henry]
+\stickfig[stance={run right},position={(1,5)},name=henry];
+
+\stickfig[
+    stance=run left,
+    position={(0,0)},
+    name=chuck,
+    hat=wizard,
+    scale=0.55
+];
+
+
+\draw (-5,-10) grid (10,8);
 
 \end{tikzpicture}
+
 
 \end{document}
