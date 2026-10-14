@@ -20,17 +20,17 @@
 
 \begin{tikzpicture}[scale=0.75,transform shape]
 
-\pic (gandalf) at (0,-5) {stick figure={run right}};
+\pic (gandalf) at (0,-5) {stick figure={run right}{}};
 
 \pic {wizardhat={gandalfhead}{red}};
 \pic {sword={gandalfright hand}{120}};
 \pic {shield={gandalfleft hand}{yellow}};
 
-\stickfig[bob][7,-4][standing]
+\stickfig[7,-4][run right][][bob]
 \pic {sword={bobleft hand}{120}};
 \pic {shield={bobright hand}{yellow}};
 
-\stickfig[henry][1,5][run left]
+\stickfig[1,5][standing][injured][henry]
 
 \end{tikzpicture}
 

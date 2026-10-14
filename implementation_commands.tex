@@ -1,5 +1,5 @@
 
-% Syntax \stickfig{<NAME>}{<POSITION>}{<STANCE>}
-\NewDocumentCommand\stickfig{O{} !O{0,0} !O{}}{
-    \pic (#1) at (#2) {stick figure={#3}};
+% Syntax \stickfig{<POSITION>}{<STANCE>}{<CONDITION>}{<NAME>}
+\NewDocumentCommand\stickfig{!O{0,0} !O{} !O{} !O{}}{
+    \pic (#4) at (#1) {stick figure={#2}{#3}};
 }

@@ -1,5 +1,5 @@
 \tikzset{
-    pics/stick figure/.style n args={1}{
+    pics/stick figure/.style n args={2}{
         code={
             \tikzset{
                 every path/.style={line width=3}
@@ -37,15 +37,21 @@
             }
         }
         % Head
-            \draw[fill=white] (face) circle (1cm);
+            \IfSubStr{#2}{injured}{
+                \draw[fill=white] ($(face)+(1,0)$) arc(0:-270:1);
+                \draw[red,line cap = round] ($(face)+(0,1)$) to[out=0,in=135] ($(face)+(0.25,0.25)$) to[out=-45,in=90] ($(face)+(1,0)$);
+            }{
+                \draw[fill=white] (face) circle (1cm);
+            }
         % Arms
-            \path[draw,name path=left arm] (shoulder) -- (left elbow) -- (left hand);
-            \path[draw,name path=right arm] (shoulder) -- (right elbow) -- (right hand);
+            \path[draw,name path=left arm,line cap = round] (shoulder) -- (left elbow) -- (left hand);
+            \path[draw,name path=right arm,line cap = round] (shoulder) -- (right elbow) -- (right hand);
         % Legs
-            \path[draw,name path=left leg] (waist) -- (left knee) -- (left foot);
-            \path[draw,name path=right leg] (waist) -- (right knee) -- (right foot);
+            \path[draw,name path=left leg,line cap = round] (waist) -- (left knee) -- (left foot);
+            \path[draw,name path=right leg,line cap = round] (waist) -- (right knee) -- (right foot);
         % Body
             \draw (chin) -- (waist);
         }
     },
+    pics/stick figure/.default={standing}{healthy},
 }
