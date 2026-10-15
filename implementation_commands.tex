@@ -32,8 +32,4 @@
     \pgfkeys{#1}
 % This is the named key value
     \pic[scale=\scale] (\name) at \position {stick figure={\stance}{\condition}};
-    \IfSubStr{\hat}{wizard}{
-        \pic[scale=\scale] {wizardhat={\name head}{red}};
-    }
-    {};
 }

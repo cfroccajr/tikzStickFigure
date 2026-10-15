@@ -1,8 +1,42 @@
+\pgfkeys{
+% Sets location (?) for commands
+    % /.cd,
+% Sets the variable names
+    scale/.store in = \scale,
+    hands/.store in = \hands,
+    stance/.store in = \stance,
+    position/.store in = \position,
+    condition/.store in = \condition,
+    name/.store in = \name,
+    hat/.store in = \hat,
+    weapon/.store in = \weapon,
+    protection/.store in =\protection,
+% Sets the default values
+    default/.style = {
+        scale = 1,
+        hands = down,
+        stance = standing,
+        position = {(0,0)},
+        condition = healthy,
+        name = ,
+        hat = none,
+        weapon = none,
+        protection = none,
+    }
+}
+
+\NewDocumentCommand\stickfig{!O{}}{
+% This processes the \pgfkeys in #1
+    \pgfkeys{default,#1}
+% This is the named key value
+    \pic[scale=\scale] (\name) at \position {stick figure};
+}
+
 \tikzset{
-    pics/stick figure/.style n args={2}{
+    pics/stick figure/.style = {
         code={
             \tikzset{
-                every path/.style={line width=3}
+                every path/.style={line width=3},
             }
         % Coordinates
         % Head
@@ -18,13 +52,13 @@
             \coordinate (right hand) at ($(right elbow)+(160:1.25)$);
         % Knees and Toes
             \coordinate (waist) at ($(neck)+(0,-1)$);
-        \IfSubStr{#1}{run left}{
+        \IfSubStr{\stance}{run left}{
             \coordinate (left knee) at ($(waist)+(-10:1.5)$);
             \coordinate (right knee) at ($(waist)+(250:1.5)$);
             \coordinate (left foot) at ($(left knee)+(-75:1.5)$);
             \coordinate (right foot) at ($(right knee)+(220:1.5)$);
         }{
-            \IfSubStr{#1}{run right}{
+            \IfSubStr{\stance}{run right}{
                 \coordinate (left knee) at ($(waist)+(-70:1.5)$);
                 \coordinate (right knee) at ($(waist)+(190:1.5)$);
                 \coordinate (left foot) at ($(left knee)+(-40:1.5)$);
@@ -37,7 +71,7 @@
             }
         }
         % Head
-            \IfSubStr{#2}{injured}{
+            \IfSubStr{\condition}{injured}{
                 \draw[fill=white] ($(face)+(1,0)$) arc(0:-270:1);
                 \draw[red,line cap = round] ($(face)+(0,1)$) to[out=0,in=135] ($(face)+(0.25,0.25)$) to[out=-45,in=90] ($(face)+(1,0)$);
             }{
@@ -51,7 +85,22 @@
             \path[draw,name path=right leg,line cap = round] (waist) -- (right knee) -- (right foot);
         % Body
             \draw (chin) -- (waist);
+        % Add Accessories
+        % Head Gear
+            \IfSubStr{\hat}{wizard}{
+                \pic {wizardhat={\name head}{red}};
+            }
+            {};
+        % Weapon
+            \IfSubStr{\weapon}{sword}{
+                \pic {sword={\name right hand}{120}};
+            }
+            {};
+        % Protection
+            \IfSubStr{\protection}{shield}{
+                \pic {shield={\name left hand}{yellow}};
+            }
+            {};        
         }
     },
-    pics/stick figure/.default={standing}{healthy},
 }

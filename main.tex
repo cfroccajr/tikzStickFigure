@@ -10,14 +10,16 @@
 \pgfdeclarelayer{foreground layer}
 \pgfsetlayers{background layer,main,foreground layer}
 
+% \input{implementation_commands}
+
+
 \input{stick_figure}
 \input{head gear}
 \input{accessories}
 
-\input{implementation_commands}
 
-\pgfkeys{key/.code= #1 #1}
-\pgfkeys{key/.default=hello}
+% \pgfkeys{key/.code= #1 #1}
+% \pgfkeys{key/.default=hello}
 
 % \pgfkeys{
 % % Sets location (?) for commands
@@ -49,26 +51,21 @@
 \begin{tikzpicture}[scale=0.75,transform shape]
 
 
-\pic (gandalf) at (0,-5) {stick figure={run left}{}};
+% \pic (gandalf) at (0,-5) {stick figure={run left}{}};
 
-\pic {wizardhat={gandalfhead}{red}};
-\pic {sword={gandalfright hand}{120}};
-\pic {shield={gandalfleft hand}{yellow}};
+% \pic {wizardhat={gandalfhead}{red}};
+% \pic {sword={gandalfright hand}{120}};
+% \pic {shield={gandalfleft hand}{yellow}};
 
-\stickfig[stance=run right,position={(7,-4)},name=bob]
-\pic {sword={bobleft hand}{120}};
-\pic {shield={bobright hand}{yellow}};
+% \stickfig[stance=run right,position={(7,-4)},name=bob]
+% \pic {sword={bobleft hand}{120}};
+% \pic {shield={bobright hand}{yellow}};
 
-\stickfig[stance={run right},position={(1,5)},name=henry];
+\stickfig[stance={run right},position={(1,5)},name=henry,protection=shield];
 
-\stickfig[
-    stance=run left,
-    position={(0,0)},
-    name=chuck,
-    hat=wizard,
-    scale=0.55
-];
+\stickfig[stance=run left,position={(5,-3)},name=chuck,hat=wizard,scale=0.75,weapon=sword];
 
+\stickfig
 
 \draw (-5,-10) grid (10,8);
 
