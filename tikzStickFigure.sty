@@ -28,6 +28,7 @@
 
 \RequirePackage{tikz}
     \usetikzlibrary{calc}
+    \usetikzlibrary{arrows.meta}
     \usetikzlibrary{intersections}
     \usetikzlibrary{backgrounds}
     \pgfdeclarelayer{background layer}
@@ -154,8 +155,13 @@
         % Weapon
             \IfSubStr{\weapon}{sword}{
                 \pic {sword={\name right hand}{120}};
-            }
-            {};
+            }{};
+            \IfSubStr{\weapon}{spear}{
+                \pic {spear={\name right hand}{70}};
+            }{};
+            \IfSubStr{\weapon}{bow}{
+                \pic {bow={\name left hand}{100}};
+            }{};
         % Protection
             \IfSubStr{\protection}{shield}{
                 \pic {shield={\name left hand}{yellow}};
@@ -192,8 +198,8 @@
 }
 
 % Weapons
-%% Sword
 \tikzset{
+%% Sword
     pics/sword/.style n args={2}{
         code={
             \tikzset{
@@ -207,8 +213,40 @@
             \end{pgfonlayer}
         }
     },
-    pics/sword/.default={right hand}{60};
+    pics/sword/.default={right hand}{60};,
+%% Spear
+    pics/spear/.style n args={2}{
+        code={
+            \tikzset{
+                every path/.style={line width=2}
+            }
+            \begin{pgfonlayer}{background layer}
+                \draw[line cap=round,brown] (#1) -- +(#2:-3);
+                \draw[line cap=round,brown] (#1) -- +(#2:1);
+                \draw[line cap=round,black,-{Kite}] (#1) ++(#2:1) -- +(#2:1.5);
+            \end{pgfonlayer}
+        }
+    },
+    pics/spear/.default={right hand}{120};,
+%% Bow
+    pics/bow/.style n args={2}{
+        code={
+            \tikzset{
+                every path/.style={line width=2}
+            }
+            \begin{pgfonlayer}{background layer}
+                \coordinate (bottom of bow) at ($(#1)+(#2:-2)+(#2+90:0.6)$);
+                \coordinate (top of bow) at ($(#1)+(#2:2)+(#2+90:0.6)$);
+                \draw[ultra thick,line width = 1] (top of bow.center) -- (bottom of bow);
+                \draw[line cap=round,brown] (#1) -- ++(#2:-0.5) to[out=#2+180,in=#2] (bottom of bow);
+                \draw[line cap=round,brown] (#1) -- ++(#2:0.5) to[out=#2,in=#2+180] (top of bow);
+            \end{pgfonlayer}
+        }
+    },
 }
+
+
+
 
 % Protection
 %% Shield
