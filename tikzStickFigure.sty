@@ -1,0 +1,228 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% The tikzstickfigure package
+% A package to create stick figures similar in style
+% to xkcd and minute physics.  This is largely inspired 
+% by the work done for tikzducks and tikzlings by samcarter
+%
+% Maintained by cfroccajr
+%
+% Project repository and bug tracker:
+% https://github.com/cfroccajr/tikzStickFigure
+%
+% Released under the LaTeX Project Public License v1.3c or later
+% See https://www.latex-project.org/lppl.txt
+%
+% Details for package creation are from 
+% https://www.overleaf.com/learn/latex/Writing_your_own_package#General_structure
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{tikzStickFigure}[2014/08/21 Stick Figures Built on Tikz]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Required Packages and Options
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{tikz}
+    \usetikzlibrary{calc}
+    \usetikzlibrary{intersections}
+    \usetikzlibrary{backgrounds}
+    \pgfdeclarelayer{background layer}
+    \pgfdeclarelayer{foreground layer}
+    \pgfsetlayers{background layer,main,foreground layer}\RequirePackage{xstring}
+\RequirePackage{xcolor}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The commands below build the user interface for drawing the 
+% stick figures in tikz.  This includes defining the key
+% arguments for adjusting its appearance, position, and 
+% accessories.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% This needs to have keys for every option and 
+% accesory with default values set to blank.
+% Or keep them separate as add ons?
+
+% Continue to examine tikzDucks to get better ideas for implimentation
+
+\pgfkeys{
+% Sets location (?) for commands
+    % /.cd,
+% Sets the variable names
+    scale/.store in = \scale,
+    hands/.store in = \hands,
+    stance/.store in = \stance,
+    position/.store in = \position,
+    condition/.store in = \condition,
+    name/.store in = \name,
+    hat/.store in = \hat,
+    weapon/.store in = \weapon,
+    protection/.store in =\protection,
+% Sets the default values
+    default/.style = {
+        scale = 1,
+        hands = down,
+        stance = standing,
+        position = {(0,0)},
+        condition = healthy,
+        name = ,
+        hat = none,
+        weapon = none,
+        protection = none,
+    }
+}
+
+\NewDocumentCommand\stickfig{!O{}}{
+% This processes the \pgfkeys in #1
+    \pgfkeys{default,#1}
+% This is the named key value
+    \pic[scale=\scale] (\name) at \position {stick figure};
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The following block of code is the implementation of the 
+% stick figure its self.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tikzset{
+    pics/stick figure/.style = {
+        code={
+            \tikzset{
+                every path/.style={line width=3},
+            }
+        % Coordinates
+        % Head
+            \coordinate (face) at (0,0);
+            \coordinate (head) at ($(face)+(-0.25,0.5)$);
+            \coordinate (chin) at ($(face)+(0,-1)$);
+            \coordinate (neck) at ($(face)+(0,-1.25)$);
+        % Shoulders
+            \coordinate (shoulder) at ($(neck)+(0,-0.33)$);
+            \coordinate (left elbow) at ($(shoulder)+(0:1.25)$);
+            \coordinate (right elbow) at ($(shoulder)+(160:1.25)$);
+            \coordinate (left hand) at ($(left elbow)+(30:1.25)$);
+            \coordinate (right hand) at ($(right elbow)+(160:1.25)$);
+        % Knees and Toes
+            \coordinate (waist) at ($(neck)+(0,-1)$);
+        \IfSubStr{\stance}{run left}{
+            \coordinate (left knee) at ($(waist)+(-10:1.5)$);
+            \coordinate (right knee) at ($(waist)+(250:1.5)$);
+            \coordinate (left foot) at ($(left knee)+(-75:1.5)$);
+            \coordinate (right foot) at ($(right knee)+(220:1.5)$);
+        }{
+            \IfSubStr{\stance}{run right}{
+                \coordinate (left knee) at ($(waist)+(-70:1.5)$);
+                \coordinate (right knee) at ($(waist)+(190:1.5)$);
+                \coordinate (left foot) at ($(left knee)+(-40:1.5)$);
+                \coordinate (right foot) at ($(right knee)+(255:1.5)$);
+            }{
+                \coordinate (left knee) at ($(waist)+(-75:1.5)$);
+                \coordinate (right knee) at ($(waist)+(255:1.5)$);
+                \coordinate (left foot) at ($(left knee)+(-75:1.5)$);
+                \coordinate (right foot) at ($(right knee)+(255:1.5)$);
+            }
+        }
+        % Head
+            \IfSubStr{\condition}{injured}{
+                \draw[fill=white] ($(face)+(1,0)$) arc(0:-270:1);
+                \draw[red,line cap = round] ($(face)+(0,1)$) to[out=0,in=135] ($(face)+(0.25,0.25)$) to[out=-45,in=90] ($(face)+(1,0)$);
+            }{
+                \draw[fill=white] (face) circle (1cm);
+            }
+        % Arms
+            \path[draw,name path=left arm,line cap = round] (shoulder) -- (left elbow) -- (left hand);
+            \path[draw,name path=right arm,line cap = round] (shoulder) -- (right elbow) -- (right hand);
+        % Legs
+            \path[draw,name path=left leg,line cap = round] (waist) -- (left knee) -- (left foot);
+            \path[draw,name path=right leg,line cap = round] (waist) -- (right knee) -- (right foot);
+        % Body
+            \draw (chin) -- (waist);
+        % Add Accessories
+        % Head Gear
+            \IfSubStr{\hat}{wizard}{
+                \pic {wizardhat={\name head}{red}};
+            }
+            {};
+        % Weapon
+            \IfSubStr{\weapon}{sword}{
+                \pic {sword={\name right hand}{120}};
+            }
+            {};
+        % Protection
+            \IfSubStr{\protection}{shield}{
+                \pic {shield={\name left hand}{yellow}};
+            }
+            {};        
+        }
+    },
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% All of the following blocks define accessories for
+% the stick figures.  This will include a variety of
+% head gear and equipment.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Head Gear
+%% Wizard Hat
+\tikzset{
+    pics/wizardhat/.style n args={2}{
+        code = {
+            \begin{pgfonlayer}{foreground layer}
+                \filldraw[fill=#2] (#1) circle [x radius=1.5cm, y radius=5mm, rotate=30];
+                \path[fill=#2,draw,rounded corners = 7pt] ($(#1)+(220:0.7)$) 
+                                to[bend right] ($(#1)+(30:0.7)$)
+                                to ($(#1)+(120:2)$)
+                                to ($(#1)+(220:0.7)$);
+            \end{pgfonlayer}
+        }
+    },
+    pics/wizardhat/.default={head}{blue}
+}
+
+% Weapons
+%% Sword
+\tikzset{
+    pics/sword/.style n args={2}{
+        code={
+            \tikzset{
+                every path/.style={line width=2}
+            }
+            \begin{pgfonlayer}{background layer}
+                \draw[line width=3,line cap=round] (#1) -- +(#2:2.5);
+                \draw (#1) -- +(#2:-7pt) circle (2pt);
+                \draw (#1) +(#2:4pt) -- +(#2+45:12pt);
+                \draw (#1) +(#2:4pt) -- +(#2-45:12pt);
+            \end{pgfonlayer}
+        }
+    },
+    pics/sword/.default={right hand}{60};
+}
+
+% Protection
+%% Shield
+
+\tikzset{
+    pics/shield/.style n args={2}{
+        code={
+            \tikzset{
+                every path/.style={line width=2}
+            }
+            \begin{pgfonlayer}{background layer}
+                \filldraw[fill=#2,draw] (#1) circle [x radius=9mm, y radius=12mm, rotate=30];                
+            \end{pgfonlayer}
+        }
+    },
+    pics/shield/.default={left hand}{brown};
+}
