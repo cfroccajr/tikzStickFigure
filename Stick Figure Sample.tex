@@ -19,12 +19,13 @@
     \stickfig
 
 %% Unnamed stick figure 
-    \stickfig[stance={run right},position={(1,5)},protection=shield,weapon=spear];
+    \stickfig[stance={run right},position={(1,5)},shield=True,weapon=spear,condition=injured];
 
 %% Named stick figure
     \stickfig[
         stance=run left,position={(5,-3)},name=chuck,hat=wizard,scale=0.75,
         weapon=bow,weapon hand=left hand,weapon angle =100,
+        shield=True, shield hand=right hand,
     ];
 
     % \draw[brown,ultra thick] (-3,-5) -- +(90:4);

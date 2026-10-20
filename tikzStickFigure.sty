@@ -33,7 +33,8 @@
     \usetikzlibrary{backgrounds}
     \pgfdeclarelayer{background layer}
     \pgfdeclarelayer{foreground layer}
-    \pgfsetlayers{background layer,main,foreground layer}\RequirePackage{xstring}
+    \pgfsetlayers{background layer,main,foreground layer}
+\RequirePackage{xstring}
 \RequirePackage{xcolor}
 
 
@@ -66,7 +67,9 @@
     weapon/.store in = \weapon,
     weapon hand/.store in = \weaponhand,
     weapon angle/.store in = \weaponangle,
-    protection/.store in =\protection,
+    shield/.store in = \shield,
+    shield hand/.store in = \shieldhand,
+    shield color/.store in = \shieldcolor,
 % Sets the default values
     default/.style = {
         scale = 1,
@@ -79,7 +82,9 @@
         weapon = none,
         weapon hand = right hand,
         weapon angle = 90,
-        protection = none,
+        shield = False,
+        shield hand = left hand,
+        shield color = yellow,
     }
 }
 
@@ -166,9 +171,9 @@
             \IfSubStr{\weapon}{bow}{
                 \pic {bow={\name \weaponhand}{\weaponangle}};
             }{};
-        % Protection
-            \IfSubStr{\protection}{shield}{
-                \pic {shield={\name left hand}{yellow}};
+        % Shield
+            \IfSubStr{\shield}{True}{
+                \pic {shield};%={\name\shieldhand}{\shieldcolor}};
             }
             {};        
         }
@@ -252,8 +257,7 @@
 
 
 
-% Protection
-%% Shield
+% Shield
 
 \tikzset{
     pics/shield/.style n args={2}{
@@ -262,7 +266,7 @@
                 every path/.style={line width=2}
             }
             \begin{pgfonlayer}{background layer}
-                \filldraw[fill=#2,draw] (#1) circle [x radius=9mm, y radius=12mm, rotate=30];                
+                \filldraw[fill=\shieldcolor,draw] (\shieldhand) circle [x radius=9mm, y radius=12mm, rotate=0];                
             \end{pgfonlayer}
         }
     },
