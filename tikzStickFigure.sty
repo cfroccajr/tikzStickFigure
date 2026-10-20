@@ -173,7 +173,7 @@
             }{};
         % Shield
             \IfSubStr{\shield}{True}{
-                \pic {shield};%={\name\shieldhand}{\shieldcolor}};
+                \pic {shield={\name\shieldhand}{\shieldcolor}};
             }
             {};        
         }
@@ -252,6 +252,7 @@
             \end{pgfonlayer}
         }
     },
+    pics/bow/.default={left hand}{90};,
 }
 
 
@@ -266,7 +267,7 @@
                 every path/.style={line width=2}
             }
             \begin{pgfonlayer}{background layer}
-                \filldraw[fill=\shieldcolor,draw] (\shieldhand) circle [x radius=9mm, y radius=12mm, rotate=0];                
+                \filldraw[fill=#2,draw] (#1) circle [x radius=9mm, y radius=12mm, rotate=0];                
             \end{pgfonlayer}
         }
     },
