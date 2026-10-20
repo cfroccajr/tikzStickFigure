@@ -159,6 +159,9 @@
         % Head Gear
             \IfSubStr{\hat}{wizard}{
                 \pic {wizardhat={\name head}{red}};
+            }{}
+            \IfSubStr{\hat}{helmet}{
+                \pic {helmet={\name face}{gray}{red}};
             }
             {};
         % Weapon
@@ -203,7 +206,30 @@
             \end{pgfonlayer}
         }
     },
-    pics/wizardhat/.default={head}{blue}
+    pics/wizardhat/.default={head}{blue};,
+%% Helmet
+    pics/helmet/.style n args={3}{
+        code={
+            \begin{pgfonlayer}{foreground layer}
+            % Helmet
+                \path[fill=#2,draw,rounded corners = 1pt,line width=2]
+                    (#1) -- ($(#1)+(-0.4,0.5)$)
+                        -- ($(#1)+(-1,-1)$) 
+                        -- ($(#1)+(-1,0)$) arc (180:0:1)
+                        -- ($(#1)+(1,-1)$)
+                        -- ($(#1)+(0.4,0.5)$)
+                        -- cycle;
+            % Plume
+                \path[line width=1,fill=#3,draw]
+                    ($(#1)+(0,1)$) 
+                        to[bend left] ++(0.7,1) 
+                        -- ++(-0.3,-0.5)
+                        -- ++(0.5,0.3)
+                        -- cycle;
+            \end{pgfonlayer}        
+        }
+    },
+    pics/helmet/.default = {face}{gray}{red};,
 }
 
 % Weapons
