@@ -64,6 +64,8 @@
     name/.store in = \name,
     hat/.store in = \hat,
     weapon/.store in = \weapon,
+    weapon hand/.store in = \weaponhand,
+    weapon angle/.store in = \weaponangle,
     protection/.store in =\protection,
 % Sets the default values
     default/.style = {
@@ -75,6 +77,8 @@
         name = ,
         hat = none,
         weapon = none,
+        weapon hand = right hand,
+        weapon angle = 90,
         protection = none,
     }
 }
@@ -154,13 +158,13 @@
             {};
         % Weapon
             \IfSubStr{\weapon}{sword}{
-                \pic {sword={\name right hand}{120}};
+                \pic {sword={\name \weaponhand}{\weaponangle}};
             }{};
             \IfSubStr{\weapon}{spear}{
-                \pic {spear={\name right hand}{70}};
+                \pic {spear={\name \weaponhand}{\weaponangle}};
             }{};
             \IfSubStr{\weapon}{bow}{
-                \pic {bow={\name left hand}{100}};
+                \pic {bow={\name \weaponhand}{\weaponangle}};
             }{};
         % Protection
             \IfSubStr{\protection}{shield}{

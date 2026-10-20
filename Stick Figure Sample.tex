@@ -19,13 +19,16 @@
     \stickfig
 
 %% Unnamed stick figure 
-    \stickfig[stance={run right},position={(1,5)},protection=shield];
+    \stickfig[stance={run right},position={(1,5)},protection=shield,weapon=spear];
 
 %% Named stick figure
-    \stickfig[stance=run left,position={(5,-3)},name=chuck,hat=wizard,scale=0.75,weapon=bow];
+    \stickfig[
+        stance=run left,position={(5,-3)},name=chuck,hat=wizard,scale=0.75,
+        weapon=bow,weapon hand=left hand,weapon angle =100,
+    ];
 
-    \draw[brown,ultra thick] (-3,-5) -- +(90:4);
-    \draw[black,ultra thick,-{Kite}] (-3,-5) ++(90:3) -- +(90:1);
+    % \draw[brown,ultra thick] (-3,-5) -- +(90:4);
+    % \draw[black,ultra thick,-{Kite}] (-3,-5) ++(90:3) -- +(90:1);
 
 %% Helper Layout Grid
     \draw[thin,dashed] (-5,-10) grid (10,8);
