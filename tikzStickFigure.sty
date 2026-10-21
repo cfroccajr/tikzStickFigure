@@ -73,7 +73,7 @@
 % Sets the default values
     default/.style = {
         scale = 1,
-        hands = down,
+        hands = up,
         stance = standing,
         position = {(0,0)},
         condition = healthy,
@@ -116,10 +116,17 @@
             \coordinate (neck) at ($(face)+(0,-1.25)$);
         % Shoulders
             \coordinate (shoulder) at ($(neck)+(0,-0.33)$);
+        \IfSubStr{\hands}{down}{
+            \coordinate (left elbow) at ($(shoulder)+(-60:1.25)$);
+            \coordinate (right elbow) at ($(shoulder)+(240:1.25)$);
+            \coordinate (left hand) at ($(left elbow)+(-60:1.2)$);
+            \coordinate (right hand) at ($(right elbow)+(240:1.2)$);            
+        }{
             \coordinate (left elbow) at ($(shoulder)+(0:1.25)$);
             \coordinate (right elbow) at ($(shoulder)+(160:1.25)$);
             \coordinate (left hand) at ($(left elbow)+(30:1.25)$);
             \coordinate (right hand) at ($(right elbow)+(160:1.25)$);
+        }
         % Knees and Toes
             \coordinate (waist) at ($(neck)+(0,-1)$);
         \IfSubStr{\stance}{run left}{
