@@ -174,6 +174,9 @@
             \IfSubStr{\weapon}{bow}{
                 \pic {bow={\name \weaponhand}{\weaponangle}};
             }{};
+            \IfSubStr{\weapon}{axe}{
+                \pic {axe={\name \weaponhand}{\weaponangle}};
+            }{};
         % Shield
             \IfSubStr{\shield}{True}{
                 \pic {shield={\name\shieldhand}{\shieldcolor}};
@@ -279,6 +282,27 @@
         }
     },
     pics/bow/.default={left hand}{90};,
+%% Axe
+    pics/axe/.style n args={2}{
+        code = {
+            % \def\base{#1};
+            \coordinate (base) at (#1);
+            \begin{pgfonlayer}{background layer}
+            \begin{scope}[rotate=#2]
+                % Shaft
+                \draw[color=brown,line cap=round,line width =3] ($(base)+(0,-1/2)$) -- ($(base)+(0,3)$);
+                % Head
+                \path[color=black,fill=gray,line width=1,draw]
+                    ($(base)+(0.53,1.83)$) 
+                        arc (-45:45:0.75)
+                        arc (-45:-135:0.75)
+                        arc (135:225:0.75)
+                        arc (135:45:0.75);
+            \end{scope}
+            \end{pgfonlayer}
+        }
+    },
+    pics/axe/.default={right hand}{-10};,
 }
 
 
