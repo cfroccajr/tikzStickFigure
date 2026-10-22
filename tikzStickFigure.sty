@@ -153,17 +153,17 @@
         }
         % Species
         \IfSubStr{\species}{elf}{
-           \draw[line width = 2] ($(face)+(1.05,0)$) arc (-30:0:1) -- ($(face)+(1,0.3
-            )$);
-            \draw[line width = 2] ($(face)+(-1.05,0)$) arc (210:180:1) -- ($(face)+(-1,0.3
-            )$);
+           \draw[line width = 2,rounded corners = 0.05mm] ($(face)+(1.05,0)$) arc (-30:0:1) -- ($(face)+(1,0.3
+            )$) -- cycle;
+            \draw[line width = 2,rounded corners = 0.05mm] ($(face)+(-1.05,0)$) arc (210:180:1) -- ($(face)+(-1,0.3
+            )$) -- cycle;
         }{}
         \IfSubStr{\species}{dwarf}{
             \begin{pgfonlayer}{foreground layer}
-            \path[line width = 2,fill=brown,bend angle =80] ($(face)+(1.05,0)$) 
-                arc (0:-73:1.5)
-                arc (253:180:1.5)
-                to[bend right] ($(face)+(0,-10pt)$)
+            \path[line width = 2,fill=brown,bend angle =60] 
+            ($(face)+(1.05,0)$) to[bend left] ($(face)+(0,-1.25)$)
+                to[bend left] ($(face)+(-1.050,0)$)
+                to[bend right] ($(face)+(0,-5pt)$)
                 to[bend right] ($(face)+(1.05,0)$);
             \end{pgfonlayer}
         }{}
