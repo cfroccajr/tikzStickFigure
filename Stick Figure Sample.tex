@@ -20,23 +20,30 @@
 \maketitle
 
 \begin{abstract}
-    Add description of the project and its purpose.
+    Tikz Stick Figures provides options for drawing basic stick figures to add to documents.  The figures may be equipped with a variety of accessories including headgear, weapons, and clothing.  Most of the options were inspired by figures that could accompany a documents related to Tabletop Role Playing games.
 \end{abstract}
 
 \section{Sampler}
 
 \begin{tikzpicture}[scale=0.5,transform shape]
 %% Basic stick figure with nose at (0,0)
-    \stickfig
+    \stickfig[species = dwarf]
+
+    % \path[line width = 2,fill=brown,bend angle =80] ($(face)+(1.05,0)$) 
+    %     arc (0:-73:1.5)
+    %     arc (253:180:1.5)
+    %     to[bend right] ($(face)+(0,-10pt)$)
+    %     to[bend right] ($(face)+(1.05,0)$);
+
 
 %% Unnamed stick figure 
     \stickfig[stance={run right},position={(1,5)},shield=True,weapon=axe,condition=injured,weapon angle=-35];
 
 %% Named stick figure
     \stickfig[
-        stance=run left,position={(5,-3)},name=chuck,hat=helmet,scale=0.75,
+        stance=run left,position={(5,-3)},name=chuck,hat=wizard,scale=0.75,
         weapon=bow,weapon hand=left hand,weapon angle =100,
-        shield=True, shield hand=right hand,
+        shield=True, shield hand=right hand,hat color=blue,
     ];
 
 %% Sample Lone Accessories
@@ -58,17 +65,20 @@
 
 \subsection{Stick Figure Key Values}
 
+The following key values are predefined to allow for stick figure configuration.
 
 \begin{description}
     \item[condition] injured or not
     \item[hands] up or down
     \item[hat] head wear
+    \item[hat color] ...
     \item[name] ...
     \item[position] ...
     \item[scale] ...
     \item[shied] shield true or false
     \item[shield color] ...
     \item[shield hand] ...
+    \item[species] ...
     \item[stance] position of the legs
     \item[weapon] ...
     \item[weapon angle] ...
@@ -84,6 +94,7 @@
     \item[Shield] ... 
     \item[Spear] ...
     \item[Sword] ...
+    \item[Wizard's Hat] ...
 \end{description}
 
 

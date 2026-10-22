@@ -54,9 +54,10 @@
 % Continue to examine tikzDucks to get better ideas for implimentation
 
 \pgfkeys{
-% Sets location (?) for commands
+% Sets location for commands
     % /.cd,
 % Sets the variable names
+    species/.store in =\species,
     scale/.store in = \scale,
     hands/.store in = \hands,
     stance/.store in = \stance,
@@ -64,6 +65,7 @@
     condition/.store in = \condition,
     name/.store in = \name,
     hat/.store in = \hat,
+    hat color/.store in = \hatcolor,
     weapon/.store in = \weapon,
     weapon hand/.store in = \weaponhand,
     weapon angle/.store in = \weaponangle,
@@ -72,6 +74,7 @@
     shield color/.store in = \shieldcolor,
 % Sets the default values
     default/.style = {
+        species = human,
         scale = 1,
         hands = up,
         stance = standing,
@@ -79,6 +82,7 @@
         condition = healthy,
         name = ,
         hat = none,
+        hat color = gray,
         weapon = none,
         weapon hand = right hand,
         weapon angle = 90,
@@ -147,6 +151,22 @@
                 \coordinate (right foot) at ($(right knee)+(255:1.5)$);
             }
         }
+        % Species
+        \IfSubStr{\species}{elf}{
+           \draw[line width = 2] ($(face)+(1.05,0)$) arc (-30:0:1) -- ($(face)+(1,0.3
+            )$);
+            \draw[line width = 2] ($(face)+(-1.05,0)$) arc (210:180:1) -- ($(face)+(-1,0.3
+            )$);
+        }{}
+        \IfSubStr{\species}{dwarf}{
+            \begin{pgfonlayer}{foreground layer}
+            \path[line width = 2,fill=brown,bend angle =80] ($(face)+(1.05,0)$) 
+                arc (0:-73:1.5)
+                arc (253:180:1.5)
+                to[bend right] ($(face)+(0,-10pt)$)
+                to[bend right] ($(face)+(1.05,0)$);
+            \end{pgfonlayer}
+        }{}
         % Head
             \IfSubStr{\condition}{injured}{
                 \draw[fill=white] ($(face)+(1,0)$) arc(0:-270:1);
@@ -165,10 +185,10 @@
         % Add Accessories
         % Head Gear
             \IfSubStr{\hat}{wizard}{
-                \pic {wizardhat={\name head}{red}};
+                \pic {wizardhat={\name head}{\hatcolor}};
             }{}
             \IfSubStr{\hat}{helmet}{
-                \pic {helmet={\name face}{gray}{red}};
+                \pic {helmet={\name face}{gray}{\hatcolor}};
             }
             {};
         % Weapon
@@ -323,7 +343,7 @@
             \tikzset{
                 every path/.style={line width=2}
             }
-            \begin{pgfonlayer}{background layer}
+            \begin{pgfonlayer}{foreground layer}
                 \filldraw[fill=#2,draw] (#1) circle [x radius=9mm, y radius=12mm, rotate=0];                
             \end{pgfonlayer}
         }
