@@ -1,7 +1,8 @@
-\documentclass{article}
+\documentclass[twoside,12pt]{article}
 
 \usepackage{tikzStickFigure}
 
+\usepackage[outer=0.75in,inner=1in]{geometry}
 \usepackage{enumitem}
 \setlist[description]{
     style=nextline,
@@ -20,14 +21,16 @@
 \maketitle
 
 \begin{abstract}
-    Tikz Stick Figures provides options for drawing basic stick figures to add to documents.  The figures may be equipped with a variety of accessories including headgear, weapons, and clothing.  Most of the options were inspired by figures that could accompany a documents related to Tabletop Role Playing Games (TTRPGs).
+    Tikz Stick Figures provides options for drawing basic stick figures to add to documents.  The figures may be equipped with a variety of accessories including headgear, weapons, and clothing.  Most of the options were inspired by figures that could accompany documents related to Tabletop Role Playing Games (TTRPGs).
 \end{abstract}
 
 \section{Sampler}
 
 \begin{tikzpicture}[scale=0.5,transform shape]
 %% Basic stick figure with nose at (0,0)
-    \stickfig[species = dwarf]
+    % \stickfig[species = dwarf, condition=injured]
+    \stickfig[species = elf, condition=injured, weapon = axe, weapon angle = 0]
+    % \stickfig[species = human, condition=injured]
 
     % \path[line width = 2,fill=brown,bend angle =80] ($(face)+(1.05,0)$) 
     %     arc (0:-73:1.5)
@@ -37,7 +40,30 @@
 
 
 %% Unnamed stick figure 
-    \stickfig[stance={run right},position={(1,5)},shield=True,weapon=axe,condition=injured,weapon angle=-35,species=elf];
+    % \stickfig[
+    %     stance={run right},position={(1,5)},shield=True,weapon=axe,
+    %     condition=injured,weapon angle=-35,species=elf,hands = going right,
+    % ];
+
+    \stickfig[scale=0.75,position={(-4,6)},hands=up]
+    \stickfig[scale=0.75,position={(0,6)},hands=down]
+
+%% Combatents
+    \stickfig[
+        scale=0.66,position={(4,6)},hands=fight left,
+        shield=True,shield hand=right hand,,shield color=blue,
+        weapon=axe,weapon hand=left hand,weapon angle=0,
+        hat=helmet,hat color=pink,
+        stance=run left,
+        condition = injured
+    ]
+    \stickfig[
+        scale=0.75,position={(8,6)},hands=fight right,
+        shield=True,
+        weapon=sword,weapon angle=70,
+        hat=wizard hat,hat color=purple,
+        stance=run right,
+    ]
 
 %% Named stick figure
     \stickfig[
@@ -49,7 +75,7 @@
 %% Sample Lone Accessories
     \pic at (-3,-3) {shield={-3,-3}{green}{yellow}};
     \pic at (-3,-1) {helmet={-3,-3}{black}{yellow}};
-    \pic at (-3,1) {axe={-3,1}{-10}};
+    \pic at (-3,1) {axe={-3,0}{0}};
 
 %% Helper Layout Grid
     \draw[thin,dashed] (-5,-10) grid (10,8);
@@ -65,12 +91,38 @@
 
 \subsection{Stick Figure Key Values}
 
-The following key values are predefined to allow for stick figure configuration.
+A stick figure can be added with just the \verb|\stickfigure| command which produces a standing figure with raised arms.  But there are a lot of options for making out stick figures more interesting. Figure \ref{fig:figure_options} gives a comprehensive sample of all the possible options; lists of options begin with the default. 
+
+\begin{figure}[hpbt]
+\begin{verbatim}
+\stickfig[
+    scale = <percent scale 0 ...>,
+    position = {(x,y)},
+    name = <figures name>,
+    condition = <healthy, injured>,
+    species = <human, elf, dwarf>,
+    stance = <standing, run right, run left>,
+    arms = <up, down, run right, run left, fight right, fight left>,
+    hat = <none, wizard hat, helmet>,
+    hat color = <color>,
+    weapon = <none, sword, spear, bow, axe>, 
+    weapon hand = <right hand, left hand>,
+    weapon angle = <rotation angle>,
+    shield = <False, True>,
+    shield hand = <left hand, right hand>,
+    shiekd color = <color>,
+    star color = <color>,
+];
+\end{verbatim}
+    \caption{Stick Figure Options and Syntax}
+    \label{fig:figure_options}
+\end{figure}
+
 
 \begin{description}
     \item[condition] injured or not
-    \item[hands] up or down
-    \item[hat] head wear
+    \item[hands] \verb|<up>|, \verb|<down>|, \verb|<bent right>|, \verb|<bent left>|, \verb|<fight right>|, \verb|<fight left>|
+    \item[hat] \verb|<none>|, \verb|<wizard hat>|, \verb|<helmet>|
     \item[hat color] ...
     \item[name] ...
     \item[position] ...
@@ -79,7 +131,7 @@ The following key values are predefined to allow for stick figure configuration.
     \item[shield color] ...
     \item[shield hand] ...
     \item[species] ...
-    \item[stance] position of the legs
+    \item[stance] \verb|<standing>|, \verb|<run left>|, \verb|<run right>|
     \item[weapon] ...
     \item[weapon angle] ...
     \item[weapon hand] ...
@@ -88,14 +140,15 @@ The following key values are predefined to allow for stick figure configuration.
 \section{Accessories}
 
 \begin{description}
-    \item[Axe] \tikz{\pic[scale=0.25] at (0,0){axe};}
-    \item[Bow] \tikz{\pic[scale=0.25] at (0,0){bow};}
-    \item[Helmet] \tikz{\pic[scale=0.25] at (0,0){helmet};}
-    \item[Shield] \tikz{\pic[scale=0.25] at (0,0){shield};}
-    \item[Spear] \tikz{\pic[scale=0.25] at (0,0){spear};}
-    \item[Sword] \tikz{\pic[scale=0.25] at (0,0){sword};}
-    \item[Wizard's Hat] \tikz{\pic[scale=0.4] at (0,0){wizardhat};}
+    \item[Axe] \tikz{\pic[scale=0.5] at (0,0){axe};}
+    \item[Bow] \tikz{\pic[scale=0.5] at (0,0){bow};}
+    \item[Helmet] \tikz{\pic[scale=0.5] at (0,0){helmet};}
+    \item[Shield] \tikz{\pic[scale=0.5] at (0,0){shield};}
+    \item[Spear] \tikz{\pic[scale=0.5] at (0,0){spear};}
+    \item[Sword] \tikz{\pic[scale=0.5] at (0,0){sword};}
+    \item[Wizard's Hat] \tikz{\pic[scale=0.5] at (0,0){wizardhat};}
 \end{description}
+
 
 
 \end{document}
