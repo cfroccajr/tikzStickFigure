@@ -125,15 +125,15 @@
             \coordinate (neck) at ($(face)+(0,-1.25)$);
         % Shoulders (and Arms)
             \coordinate (shoulder) at ($(neck)+(0,-0.25)$);
-            \coordinate (left elbow) at ($(shoulder)+(20:1.25)$);
-            \coordinate (left hand) at ($(left elbow)+(20:1.25)$);
-            \coordinate (right elbow) at ($(shoulder)+(160:1.25)$);
-            \coordinate (right hand) at ($(right elbow)+(160:1.25)$);
+            \coordinate (left elbow) at ($(shoulder)+(20:1.125)$);
+            \coordinate (left hand) at ($(left elbow)+(20:1.12)$);
+            \coordinate (right elbow) at ($(shoulder)+(160:1.125)$);
+            \coordinate (right hand) at ($(right elbow)+(160:1.12)$);
             \IfSubStr{\hands}{down}{
-                \coordinate (left elbow) at ($(shoulder)+(-40:1.25)$);
-                \coordinate (left hand) at ($(left elbow)+(-40:1.2)$);
-                \coordinate (right elbow) at ($(shoulder)+(220:1.25)$);
-                \coordinate (right hand) at ($(right elbow)+(220:1.2)$);            
+                \coordinate (left elbow) at ($(shoulder)+(-40:1.125)$);
+                \coordinate (left hand) at ($(left elbow)+(-40:1.12)$);
+                \coordinate (right elbow) at ($(shoulder)+(220:1.125)$);
+                \coordinate (right hand) at ($(right elbow)+(220:1.12)$);            
             }{}
             \IfSubStr{\hands}{bent left}{
                 \coordinate (left elbow) at ($(shoulder)+(-20:1.25)$);
@@ -162,19 +162,19 @@
             
         % Knees and Toes
             \coordinate (waist) at ($(neck)+(0,-1)$);
-            \coordinate (left knee) at ($(waist)+(-75:1.5)$);
-            \coordinate (right knee) at ($(waist)+(255:1.5)$);
-            \coordinate (left foot) at ($(left knee)+(-75:1.5)$);
-            \coordinate (right foot) at ($(right knee)+(255:1.5)$);
+            \coordinate (left knee) at ($(waist)+(-75:1.25)$);
+            \coordinate (right knee) at ($(waist)+(255:1.25)$);
+            \coordinate (left foot) at ($(left knee)+(-75:1.25)$);
+            \coordinate (right foot) at ($(right knee)+(255:1.25)$);
             \IfSubStr{\stance}{run left}{
-                \coordinate (left knee) at ($(waist)+(-10:1.5)$);
+                \coordinate (left knee) at ($(waist)+(-30:1.5)$);
                 \coordinate (right knee) at ($(waist)+(250:1.5)$);
                 \coordinate (left foot) at ($(left knee)+(-75:1.5)$);
                 \coordinate (right foot) at ($(right knee)+(220:1.5)$);
             }{}
             \IfSubStr{\stance}{run right}{
                 \coordinate (left knee) at ($(waist)+(-70:1.5)$);
-                \coordinate (right knee) at ($(waist)+(190:1.5)$);
+                \coordinate (right knee) at ($(waist)+(210:1.5)$);
                 \coordinate (left foot) at ($(left knee)+(-40:1.5)$);
                 \coordinate (right foot) at ($(right knee)+(255:1.5)$);
             }{}
@@ -293,7 +293,7 @@
             \begin{pgfonlayer}{foreground layer}
             % Helmet
                 \path[fill=#2,draw,rounded corners = 1pt,line width=2]
-                    (#1) -- ($(#1)+(-0.4,0.5)$)
+                    ($(#1)+(0,0.2)$) -- ($(#1)+(-0.4,0.5)$)
                         -- ($(#1)+(-1,-1)$) 
                         -- ($(#1)+(-1,0)$) arc (180:0:1)
                         -- ($(#1)+(1,-1)$)
@@ -337,10 +337,11 @@
                 every path/.style={line width=2},
                 transform shape,
             }
+            \coordinate (spear) at ($(#1)+(0,1.125)$);
             \begin{pgfonlayer}{background layer}
-                \draw[line cap=round,brown] (#1) -- +(#2:-3);
-                \draw[line cap=round,brown] (#1) -- +(#2:1);
-                \draw[line cap=round,black,-{Kite}] (#1) ++(#2:1) -- +(#2:1.5);
+                \draw[line cap=round,brown] (spear) -- +(#2:-3);
+                \draw[line cap=round,brown] (spear) -- +(#2:1);
+                \draw[line cap=round,black,-{Kite}] (spear) ++(#2:1) -- +(#2:1.5);
             \end{pgfonlayer}
         }
     },
@@ -369,14 +370,14 @@
             \begin{pgfonlayer}{background layer}
             \begin{scope}[rotate=#2]
                 % Shaft
-                \draw[color=brown,line cap=round,line width =3] ($(base)+(0,-1/2)$) -- ($(base)+(0,3)$);
+                \draw[color=brown,line cap=round,line width =3] ($(base)+(-1/2,0)$) -- ($(base)+(3,0)$);
                 % Head
                 \path[color=black,fill=gray,line width=1,draw]
-                    ($(base)+(0.53,1.83)$) 
+                    ($(base)+(2,-0.55)$) 
                         arc (-45:45:0.75)
-                        arc (-45:-135:0.75)
+                        arc (135:45:0.75)
                         arc (135:225:0.75)
-                        arc (135:45:0.75);
+                        arc (-45:-135:0.75);
             \end{scope}
             \end{pgfonlayer}
         }

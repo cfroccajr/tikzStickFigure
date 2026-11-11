@@ -1,15 +1,25 @@
+\DocumentMetadata{
+    tagging=on,
+    tagging-setup={math/setup=mathml-SE},
+    pdfstandard=ua-2,
+    lang=en-US
+}
 \documentclass[twoside,12pt]{article}
 
 \usepackage{tikzStickFigure}
+\usepackage{unicode-math}
 
 \usepackage[outer=0.75in,inner=1in]{geometry}
 \usepackage{enumitem}
 \setlist[description]{
-    style=nextline,
+    % style=nextline,
     labelwidth=0pt,
     leftmargin=0.5in,
     itemindent=-12pt,
 }
+\usepackage{geometry}
+\geometry{inner=0.75in,outer=0.5in,top=1in,bottom=0.75in}
+
 
 \title{Tikz Stick Figures}
 \author{C.F. Rocca Jr.}
@@ -28,8 +38,61 @@
 
 \begin{tikzpicture}[scale=0.5,transform shape]
 %% Basic stick figure with nose at (0,0)
+    \stickfig[];
+
+%%% Basic Elf
+    \stickfig[
+        position = {(5,0)},
+        species = elf,
+        hands = down,
+        weapon = spear,
+    ];
+
+%%% Dwarf Barbarian
+    \stickfig[
+        position = {(10,0)},
+        species = dwarf,
+        hands = fight left,
+        stance = run left,
+        weapon = axe,
+        weapon angle = 100,
+        weapon hand = left hand,
+        hat = helmet,
+        hat color = red,
+    ];
+
+%%% Human Fighter
+    \stickfig[
+        position = {(15,0)},
+        species = human,
+        hands = fight right,
+        stance = run right,
+        weapon = sword,
+        weapon angle = 80,
+        shield = True,
+        shield color = green!50!black,
+        star color = pink,
+    ];
+
+%%% Casualty
+\begin{scope}[rotate around = {70:(18,-1)}]
+    \stickfig[
+        position = {(18,-1)},
+        condition = injured,
+    ]
+\end{scope}
+
+%%% Fully Decked Out Named Wizard
+    \stickfig[
+        stance=run left,position={(20,-10)},name=Chuck,hat=wizard hat,
+        weapon=bow,weapon hand=left hand,weapon angle =100,
+        shield=True, shield hand=right hand,hat color=blue,
+        condition = injured,species=elf
+    ];
+    \node[font=\large\bfseries,anchor=north] at (\name right foot) {\name};
+
     % \stickfig[species = dwarf, condition=injured]
-    \stickfig[species = elf, condition=injured, weapon = axe, weapon angle = 0]
+    % \stickfig[species = elf, condition=injured, weapon = axe, weapon angle = 0]
     % \stickfig[species = human, condition=injured]
 
     % \path[line width = 2,fill=brown,bend angle =80] ($(face)+(1.05,0)$) 
@@ -45,40 +108,40 @@
     %     condition=injured,weapon angle=-35,species=elf,hands = going right,
     % ];
 
-    \stickfig[scale=0.75,position={(-4,6)},hands=up]
-    \stickfig[scale=0.75,position={(0,6)},hands=down]
+    % \stickfig[scale=0.75,position={(-4,6)},hands=up]
+    % \stickfig[scale=0.75,position={(0,6)},hands=down]
 
 %% Combatents
-    \stickfig[
-        scale=0.66,position={(4,6)},hands=fight left,
-        shield=True,shield hand=right hand,,shield color=blue,
-        weapon=axe,weapon hand=left hand,weapon angle=0,
-        hat=helmet,hat color=pink,
-        stance=run left,
-        condition = injured
-    ]
-    \stickfig[
-        scale=0.75,position={(8,6)},hands=fight right,
-        shield=True,
-        weapon=sword,weapon angle=70,
-        hat=wizard hat,hat color=purple,
-        stance=run right,
-    ]
+    % \stickfig[
+    %     scale=0.66,position={(4,6)},hands=fight left,
+    %     shield=True,shield hand=right hand,,shield color=blue,
+    %     weapon=axe,weapon hand=left hand,weapon angle=0,
+    %     hat=helmet,hat color=pink,
+    %     stance=run left,
+    %     condition = injured
+    % ]
+    % \stickfig[
+    %     scale=0.75,position={(8,6)},hands=fight right,
+    %     shield=True,
+    %     weapon=sword,weapon angle=70,
+    %     hat=wizard hat,hat color=purple,
+    %     stance=run right,
+    % ]
 
 %% Named stick figure
-    \stickfig[
-        stance=run left,position={(5,-3)},name=chuck,hat=wizard hat,scale=0.75,
-        weapon=bow,weapon hand=left hand,weapon angle =100,
-        shield=True, shield hand=right hand,hat color=blue,
-    ];
+    % \stickfig[
+    %     stance=run left,position={(5,-3)},name=chuck,hat=wizard hat,scale=0.75,
+    %     weapon=bow,weapon hand=left hand,weapon angle =100,
+    %     shield=True, shield hand=right hand,hat color=blue,
+    % ];
 
 %% Sample Lone Accessories
-    \pic at (-3,-3) {shield={-3,-3}{green}{yellow}};
-    \pic at (-3,-1) {helmet={-3,-3}{black}{yellow}};
-    \pic at (-3,1) {axe={-3,0}{0}};
+    % \pic at (-3,-3) {shield={-3,-3}{green}{yellow}};
+    % \pic at (-3,-1) {helmet={-3,-3}{black}{yellow}};
+    % \pic at (-3,1) {axe={-3,0}{0}};
 
 %% Helper Layout Grid
-    \draw[thin,dashed] (-5,-10) grid (10,8);
+    \draw[thin,dashed] (0,0) grid (20,-10);
 
 %% Development Space
 
@@ -102,7 +165,7 @@ A stick figure can be added with just the \verb|\stickfigure| command which prod
     condition = <healthy, injured>,
     species = <human, elf, dwarf>,
     stance = <standing, run right, run left>,
-    arms = <up, down, run right, run left, fight right, fight left>,
+    hands = <up, down, bent right, bent left, fight right, fight left>,
     hat = <none, wizard hat, helmet>,
     hat color = <color>,
     weapon = <none, sword, spear, bow, axe>, 
