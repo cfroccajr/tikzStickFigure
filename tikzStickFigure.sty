@@ -114,10 +114,17 @@
 \tikzset{
     pics/stick figure/.style = {
         code={
+            \IfSubStr{\species}{gnome}{
+                \def\myscale{0.66},
+                \def\hat{gnome hat}
+            }{
+                \def\myscale{1}
+            },
             \tikzset{
                 every path/.style={line width=3,rounded corners = 0.1pt},
+                scale=\myscale,
             }
-        % Coordinates
+    % Body
         % Head
             \coordinate (face) at (0,0);
             \coordinate (head) at ($(face)+(0,0.5)$);
@@ -159,7 +166,6 @@
                 \coordinate (right elbow) at ($(shoulder)+(200:1.25)$);
                 \coordinate (right hand) at ($(right elbow)+(150:1.2)$);            
             }{}
-            
         % Knees and Toes
             \coordinate (waist) at ($(neck)+(0,-1)$);
             \coordinate (left knee) at ($(waist)+(-75:1.25)$);
@@ -180,10 +186,12 @@
             }{}
         % Species
             \IfSubStr{\species}{elf}{
-               \draw[line width = 2,rounded corners = 0.05mm] ($(face)+(1.05,0)$) arc (-30:0:1) -- ($(face)+(1,0.3
-                )$) -- cycle;
-                \draw[line width = 2,rounded corners = 0.05mm] ($(face)+(-1.05,0)$) arc (210:180:1) -- ($(face)+(-1,0.3
-                )$) -- cycle;
+                \begin{pgfonlayer}{foreground layer}
+                   \draw[line width = 2,rounded corners = 0.05mm] ($(face)+(1.05,0)$) arc (-30:0:1) -- ($(face)+(1,0.3
+                    )$) -- cycle;
+                    \draw[line width = 2,rounded corners = 0.05mm] ($(face)+(-1.05,0)$) arc (210:180:1) -- ($(face)+(-1,0.3
+                    )$) -- cycle;                
+                \end{pgfonlayer}
             }{}
             \IfSubStr{\species}{dwarf}{
                 \begin{pgfonlayer}{foreground layer}
@@ -206,7 +214,7 @@
             }{}
         % Body
             \draw (chin) -- (waist);
-        % Condition 
+    % Condition
             \IfSubStr{\condition}{injured}{
                 \begin{pgfonlayer}{foreground layer}
                 % Head Injury
@@ -222,13 +230,17 @@
                     \node[color=black,xshift=3pt,yshift=-3pt,scale=1] at (shoulder) {\(\varheartsuit\)};
                 \end{pgfonlayer}
             }{}
-        % Add Accessories
+    % Add Accessories
         % Head Gear
             \IfSubStr{\hat}{wizard hat}{
                 \pic {wizardhat={\name head}{\hatcolor}};
             }{}
             \IfSubStr{\hat}{helmet}{
                 \pic {helmet={\name face}{gray}{\hatcolor}};
+            }
+            {};
+            \IfSubStr{\hat}{gnome hat}{
+                \pic {gnomehat={\name face}{\hatcolor}};
             }
             {};
         % Weapon
@@ -310,6 +322,24 @@
         }
     },
     pics/helmet/.default = {face}{gray}{red};,
+%% Gnome Hat
+    pics/gnomehat/.style n args={2}{
+        code={
+            \coordinate (base) at ($(#1)+(-0.125,0.25)$);
+            \begin{pgfonlayer}{foreground layer}
+            % Point
+                \path[fill=#2,draw,rounded corners,rotate=0,bend angle = 10,line cap=round,scale=1.15] 
+                    (base) -- ($(base)+(-0.9,0.1)$)
+                        -- ($(base)+(-0.15,0.7)$)
+                        -- ($(base)+(-0.2,1.3)$)
+                        -- ($(base)+(-0.95,1.5)$)
+                        -- ($(base)+(0,1.9)$)
+                        -- ($(base)+(0.9,0.1)$)
+                        -- (base);
+            \end{pgfonlayer}        
+        }
+    },
+    pics/gnomehat/.default = {face}{red};,
 }
 
 % Weapons
@@ -402,4 +432,22 @@
         }
     },
     pics/shield/.default={left hand}{brown}{purple};
+}
+
+% Staff
+\tikzset{
+    pics/staff/.style n args={2}{
+        code={
+            \tikzset{
+                every path/.style={line width=2},
+                transform shape,
+            }
+            \coordinate (staff) at ($(#1)+(0,1.125)$);
+            \begin{pgfonlayer}{background layer}
+                \draw[line cap=round,brown] (spear) -- +(#2:-3);
+                \draw[line cap=round,brown] (spear) -- +(#2:1);
+            \end{pgfonlayer}
+        }
+    },
+    pics/staff/.default={right hand}{120};,
 }

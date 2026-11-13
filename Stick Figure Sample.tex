@@ -77,8 +77,11 @@
 %%% Casualty
 \begin{scope}[rotate around = {70:(18,-1)}]
     \stickfig[
+        species = gnome,
         position = {(18,-1)},
         condition = injured,
+        hands = fight left,
+        hat color = red,
     ]
 \end{scope}
 
@@ -89,7 +92,7 @@
         shield=True, shield hand=right hand,hat color=blue,
         condition = injured,species=elf
     ];
-    \node[font=\large\bfseries,anchor=north] at (\name right foot) {\name};
+    \node[font=\large\bfseries,anchor=north] at (Chuckright foot) {\name};
 
     % \stickfig[species = dwarf, condition=injured]
     % \stickfig[species = elf, condition=injured, weapon = axe, weapon angle = 0]
@@ -163,10 +166,10 @@ A stick figure can be added with just the \verb|\stickfigure| command which prod
     position = {(x,y)},
     name = <figures name>,
     condition = <healthy, injured>,
-    species = <human, elf, dwarf>,
+    species = <human, elf, dwarf, gnome>,
     stance = <standing, run right, run left>,
     hands = <up, down, bent right, bent left, fight right, fight left>,
-    hat = <none, wizard hat, helmet>,
+    hat = <none, wizard hat, helmet, gnome hat>,
     hat color = <color>,
     weapon = <none, sword, spear, bow, axe>, 
     weapon hand = <right hand, left hand>,
