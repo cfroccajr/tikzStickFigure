@@ -52,7 +52,7 @@
     \stickfig[
         position = {(10,0)},
         species = dwarf,
-        hands = fight left,
+        hands = run left,
         stance = run left,
         weapon = axe,
         weapon angle = 100,
@@ -65,7 +65,7 @@
     \stickfig[
         position = {(15,0)},
         species = human,
-        hands = fight right,
+        hands = run right,
         stance = run right,
         weapon = sword,
         weapon angle = 80,
@@ -80,7 +80,7 @@
         species = gnome,
         position = {(18,-1)},
         condition = injured,
-        hands = fight left,
+        hands = run left,
         hat color = red,
     ]
 \end{scope}
@@ -116,7 +116,7 @@
 
 %% Combatents
     % \stickfig[
-    %     scale=0.66,position={(4,6)},hands=fight left,
+    %     scale=0.66,position={(4,6)},hands=run left,
     %     shield=True,shield hand=right hand,,shield color=blue,
     %     weapon=axe,weapon hand=left hand,weapon angle=0,
     %     hat=helmet,hat color=pink,
@@ -124,7 +124,7 @@
     %     condition = injured
     % ]
     % \stickfig[
-    %     scale=0.75,position={(8,6)},hands=fight right,
+    %     scale=0.75,position={(8,6)},hands=run right,
     %     shield=True,
     %     weapon=sword,weapon angle=70,
     %     hat=wizard hat,hat color=purple,
@@ -157,7 +157,7 @@
 
 \subsection{Stick Figure Key Values}
 
-A stick figure can be added with just the \verb|\stickfigure| command which produces a standing figure with raised arms.  But there are a lot of options for making out stick figures more interesting. Figure \ref{fig:figure_options} gives a comprehensive sample of all the possible options; lists of options begin with the default. 
+A stick figure can be added with just the \verb|\stickfigure| command which produces a standing figure with raised arms.  But there are a lot of options for making the stick figures more interesting. Figure \ref{fig:figure_options} gives a comprehensive sample of all the possible options; lists of options begin with the default. 
 
 \begin{figure}[hpbt]
 \begin{verbatim}
@@ -168,7 +168,7 @@ A stick figure can be added with just the \verb|\stickfigure| command which prod
     condition = <healthy, injured>,
     species = <human, elf, dwarf, gnome>,
     stance = <standing, run right, run left>,
-    hands = <up, down, bent right, bent left, fight right, fight left>,
+    hands = <up, down, bent right, bent left, run right, run left>,
     hat = <none, wizard hat, helmet, gnome hat>,
     hat color = <color>,
     weapon = <none, sword, spear, bow, axe>, 
@@ -187,7 +187,7 @@ A stick figure can be added with just the \verb|\stickfigure| command which prod
 
 \begin{description}
     \item[condition] injured or not
-    \item[hands] \verb|<up>|, \verb|<down>|, \verb|<bent right>|, \verb|<bent left>|, \verb|<fight right>|, \verb|<fight left>|
+    \item[hands] \verb|<up>|, \verb|<down>|, \verb|<bent right>|, \verb|<bent left>|, \verb|<run right>|, \verb|<run left>|
     \item[hat] \verb|<none>|, \verb|<wizard hat>|, \verb|<helmet>|
     \item[hat color] ...
     \item[name] ...
@@ -206,7 +206,7 @@ A stick figure can be added with just the \verb|\stickfigure| command which prod
 \section{Accessories}
 
 \begin{description}
-    \item[Axe] \tikz{\pic[scale=0.5] at (0,0){axe};}
+    \item[Axe] \tikz{\pic[scale=0.5,rotate=70] at (0,0){axe};}
     \item[Bow] \tikz{\pic[scale=0.5] at (0,0){bow};}
     \item[Helmet] \tikz{\pic[scale=0.5] at (0,0){helmet};}
     \item[Shield] \tikz{\pic[scale=0.5] at (0,0){shield};}
