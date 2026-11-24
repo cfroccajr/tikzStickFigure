@@ -439,10 +439,10 @@
                 \draw[line cap=round,brown] (#1) -- ++(#2:2);
             % Head
                 \coordinate (head) at ($(#1)+(#2:1.75)$);
-                \draw[line cap = round,color = brown!50!black]  (head) to[out=90,in=200] ++(#2:1) to[out=20,in=-60] ++(#2-30:0.5);
-                \node[star,star points=8,fill=#3,text width=3pt,opacity=0.75] at ($(head)+(#2:1.25)$) {};
+                \draw[line cap = round,color = brown!40!black]  (head) to[out=90,in=200] ++(#2:1) to[out=20,in=-60] ++(#2-30:0.5);
+                \node[star,star points=8,shade,ball color=#3,text width=3pt,opacity=0.66] at ($(head)+(#2:1.25)$) {};
                 \draw[line cap = round,color = brown!70!black]  (head) to[out=90,in=-100] ++(#2:1) to[out=80,in=-80] ++(#2:0.5);
-                \draw[line cap = round,color = brown!90!black]  (head) to[out=90,in=-70] ++(#2:0.75) to[out=110,in=220] ++(#2+30:0.6);
+                \draw[line cap = round,color = brown]  (head) to[out=90,in=-70] ++(#2:0.75) to[out=110,in=220] ++(#2+30:0.6);
             \end{pgfonlayer}
         }
     },
