@@ -82,18 +82,20 @@
         condition = injured,
         hands = run right,
         hat color = red,
+        weapon = bow,
+        weapon angle = 300
     ]
 \end{scope}
 
 %%% Fully Decked Out Named Wizard
     \stickfig[
         stance=run left,position={(20,-10)},name=Chuck,hat=wizard hat,
-        weapon=bow,weapon hand=left hand,weapon angle =100,
+        weapon=staff,weapon hand=left hand,weapon angle =100,
         hat color=blue,condition = injured,species=elf,
         hands=bent
     ];
     \node[font=\large\bfseries,anchor=north] at (Chuckright foot) {\name};
-    \pic {spear={Chuckright hand}{90}};
+    \pic {sword={Chuckright hand}{90}};
 
     % \stickfig[species = dwarf, condition=injured]
     % \stickfig[species = elf, condition=injured, weapon = axe, weapon angle = 0]
@@ -172,13 +174,14 @@ A stick figure can be added with just the \verb|\stickfigure| command which prod
     hands = <up, down, bent right, bent left, bent, run right, run left>,
     hat = <none, wizard hat, helmet, gnome hat>,
     hat color = <color>,
-    weapon = <none, sword, spear, bow, axe>, 
+    weapon = <none, sword, spear, bow, axe, staff>, 
     weapon hand = <right hand, left hand>,
     weapon angle = <rotation angle>,
+    gem color = <purple, color>,
     shield = <False, True>,
     shield hand = <left hand, right hand>,
-    shiekd color = <color>,
-    star color = <color>,
+    shield color = <yellow, color>,
+    star color = <purple, color>,
 ];
 \end{verbatim}
     \caption{Stick Figure Options and Syntax}

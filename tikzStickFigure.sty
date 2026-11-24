@@ -72,6 +72,7 @@
     weapon/.store in = \weapon,
     weapon hand/.store in = \weaponhand,
     weapon angle/.store in = \weaponangle,
+    gem color/.store in = \gemcolor,
     shield/.store in = \shield,
     shield hand/.store in = \shieldhand,
     shield color/.store in = \shieldcolor,
@@ -90,6 +91,7 @@
         weapon = none,
         weapon hand = right hand,
         weapon angle = 90,
+        gem color = purple,
         shield = False,
         shield hand = left hand,
         shield color = yellow,
@@ -115,13 +117,17 @@
     pics/stick figure/.style = {
         code={
             \IfSubStr{\species}{gnome}{
-                \def\myscale{0.66},
+            % scales figure down to gnome size
+                \def\myscale{0.5},
+            % adds the characteristic hat to the gnome
                 \def\hat{gnome hat}
+            % this will add pointed ears to the gnome
+                \def\species{elf}
             }{
                 \def\myscale{1}
             },
             \tikzset{
-                every path/.style={line width=3,rounded corners = 0.1pt},
+                every path/.style={line width=3*\myscale,rounded corners = 0.1pt},
                 scale=\myscale,
             }
     % Body
@@ -216,24 +222,23 @@
         % Legs
             \path[draw,name path=left leg,line cap = round] (waist) -- (left knee) -- (left foot);
             \path[draw,name path=right leg,line cap = round] (waist) -- (right knee) -- (right foot);
-            \IfSubStr{\condition}{injured}{
-            }{}
         % Body
             \draw (chin) -- (waist);
     % Condition
             \IfSubStr{\condition}{injured}{
+            % Head
+                \draw[fill=white] ($(face)+(1,0)$) arc(0:-270:1);
                 \begin{pgfonlayer}{foreground layer}
                 % Head Injury
-                    \draw[fill=white] ($(face)+(1,0)$) arc(0:-270:1);
                     \filldraw[red,line cap = round] 
                         ($(face)+(0,1)$) to[out=0,in=135] ($(face)+(0.5,0.5)$) 
                             to[out=-45,in=90] ($(face)+(1,0)$)
                             arc(0:90:1);
                 % Leg Injury
-                    \draw[line cap = round, line width = 5, red] (left knee) -- (left foot) -- +(10:15pt);
+                    \draw[line cap = round, line width = 5*\myscale, red] (left knee) -- (left foot) -- +(10:15pt);
                 % Heart
-                    \node[color=red,xshift=3pt,yshift=-3pt,scale=2] at (shoulder) {\(\varheartsuit\)};
-                    \node[color=black,xshift=3pt,yshift=-3pt,scale=1] at (shoulder) {\(\varheartsuit\)};
+                    \node[color=red,xshift=3pt,yshift=-3pt,scale=2*\myscale] at (shoulder) {\(\varheartsuit\)};
+                    \node[color=black,xshift=3pt,yshift=-3pt,scale=1*\myscale] at (shoulder) {\(\varheartsuit\)};
                 \end{pgfonlayer}
             }{}
     % Add Accessories
@@ -261,6 +266,9 @@
             }{};
             \IfSubStr{\weapon}{axe}{
                 \pic {axe={\name \weaponhand}{\weaponangle}};
+            }{};
+            \IfSubStr{\weapon}{staff}{
+                \pic {staff={\name \weaponhand}{\weaponangle}{\gemcolor}};
             }{};
         % Shield
             \IfSubStr{\shield}{True}{
@@ -418,6 +426,27 @@
         }
     },
     pics/axe/.default={right hand}{0};,
+%% Staff
+    pics/staff/.style n args={3}{
+        code={
+            \tikzset{
+                every path/.style={line width=2},
+                transform shape,
+            }
+            \begin{pgfonlayer}{background layer}
+            % Shaft
+                \draw[line cap=round,brown] (#1) -- +(#2:-2);
+                \draw[line cap=round,brown] (#1) -- ++(#2:2);
+            % Head
+                \coordinate (head) at ($(#1)+(#2:1.75)$);
+                \draw[line cap = round,color = brown!50!black]  (head) to[out=90,in=200] ++(#2:1) to[out=20,in=-60] ++(#2-30:0.5);
+                \node[star,star points=8,fill=#3,text width=3pt,opacity=0.75] at ($(head)+(#2:1.25)$) {};
+                \draw[line cap = round,color = brown!70!black]  (head) to[out=90,in=-100] ++(#2:1) to[out=80,in=-80] ++(#2:0.5);
+                \draw[line cap = round,color = brown!90!black]  (head) to[out=90,in=-70] ++(#2:0.75) to[out=110,in=220] ++(#2+30:0.6);
+            \end{pgfonlayer}
+        }
+    },
+    pics/staff/.default={right hand}{120}{purple};,
 }
 
 
@@ -440,19 +469,19 @@
 }
 
 % Staff
-\tikzset{
-    pics/staff/.style n args={2}{
-        code={
-            \tikzset{
-                every path/.style={line width=2},
-                transform shape,
-            }
-            \coordinate (staff) at ($(#1)+(0,1.125)$);
-            \begin{pgfonlayer}{background layer}
-                \draw[line cap=round,brown] (spear) -- +(#2:-3);
-                \draw[line cap=round,brown] (spear) -- +(#2:1);
-            \end{pgfonlayer}
-        }
-    },
-    pics/staff/.default={right hand}{120};,
-}
+% \tikzset{
+%     pics/staff/.style n args={2}{
+%         code={
+%             \tikzset{
+%                 every path/.style={line width=2},
+%                 transform shape,
+%             }
+%             \coordinate (staff) at ($(#1)+(0,1.125)$);
+%             \begin{pgfonlayer}{background layer}
+%                 \draw[line cap=round,brown] (spear) -- +(#2:-3);
+%                 \draw[line cap=round,brown] (spear) -- +(#2:1);
+%             \end{pgfonlayer}
+%         }
+%     },
+%     pics/staff/.default={right hand}{120};,
+% }
