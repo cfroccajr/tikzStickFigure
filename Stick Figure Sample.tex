@@ -80,7 +80,7 @@
         species = gnome,
         position = {(18,-1)},
         condition = injured,
-        hands = run left,
+        hands = run right,
         hat color = red,
     ]
 \end{scope}
@@ -89,10 +89,11 @@
     \stickfig[
         stance=run left,position={(20,-10)},name=Chuck,hat=wizard hat,
         weapon=bow,weapon hand=left hand,weapon angle =100,
-        shield=True, shield hand=right hand,hat color=blue,
-        condition = injured,species=elf
+        hat color=blue,condition = injured,species=elf,
+        hands=bent
     ];
     \node[font=\large\bfseries,anchor=north] at (Chuckright foot) {\name};
+    \pic {spear={Chuckright hand}{90}};
 
     % \stickfig[species = dwarf, condition=injured]
     % \stickfig[species = elf, condition=injured, weapon = axe, weapon angle = 0]
@@ -168,7 +169,7 @@ A stick figure can be added with just the \verb|\stickfigure| command which prod
     condition = <healthy, injured>,
     species = <human, elf, dwarf, gnome>,
     stance = <standing, run right, run left>,
-    hands = <up, down, bent right, bent left, run right, run left>,
+    hands = <up, down, bent right, bent left, bent, run right, run left>,
     hat = <none, wizard hat, helmet, gnome hat>,
     hat color = <color>,
     weapon = <none, sword, spear, bow, axe>, 
